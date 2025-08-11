@@ -1,6 +1,23 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
+// This middleware checks if the user is authenticated before accessing protected routes
+const isProtectedRoute = createRouteMatcher([
+  "/dashboard(.*)",
+  "/resume(.*)",
+  "/ai-cover-letter(.*)",
+  "/interview(.*)",
+  "/onboarding(.*)",
+]);
+// This middleware will redirect unauthenticated users to the sign-in page
+export default clerkMiddleware(async (auth,req)=>{
+  const {userID}=await auth();
 
-export default clerkMiddleware();
+  if(!userID && isProtectedRoute(req)){
+    const {redirectToSignIn} = await auth();
+    return redirectToSignIn()
+  }
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [
