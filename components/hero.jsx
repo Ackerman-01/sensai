@@ -11,12 +11,12 @@ const HeroSection = () => {
                 <br />
                 Professional Success
             </h1>
-            <p>Advance your career with personalized guidance, interview prep, and AI-powered
-                tools. Whether you're a student, job seeker, <br/>or professional, Sensai is here to help you
+            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">Advance your career with personalized guidance, interview prep, and AI-powered
+                tools. Whether you're a student, job seeker, or professional, Sensai is here to help you
                 achieve your career goals.
             </p>
         </div>
-        <div>
+        <div className="gap-4 flex justify-center items-center flex-wrap">
             <Link href="/dashboard">
                 <Button size="lg" className="px-8">
                     Get Started

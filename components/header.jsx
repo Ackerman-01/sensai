@@ -25,9 +25,9 @@ const Header = () => {
     supports-[backdrop-filter]:bg-background/60'>
             <nav className='container mx-auto flex items-center justify-between px-4 py-2'>
                 <Link href="/">
-                    <Image src="/logo.png"
+                    <Image src="/logo12.png"
                         alt="Logo" width={200} height={60}
-                        className="h-12 py-1 w-auto object-contain" />
+                        className="h-12  w-auto object-contain" />
 
                 </Link>
                 <div className='flex items-center space-x-2 md:space-x-4'>
