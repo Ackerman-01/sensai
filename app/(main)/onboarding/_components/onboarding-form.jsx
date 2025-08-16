@@ -53,8 +53,30 @@ const OnboardingForm = ({ industries }) => {
     });
 
     const onSubmit = async (values) => { 
-        console.log("Form submitted with values:", values);
+       try {
+      const formattedIndustry = `${values.industry}-${values.subIndustry
+        .toLowerCase()
+        .replace(/ /g, "-")}`;
+
+      await updateUserFn({
+        ...values,
+        industry: formattedIndustry,
+      });
+    } catch (error) {
+      console.error("Onboarding error:", error);
     }
+
+    };
+
+      useEffect(() => {
+    if (updateResult?.success && !updateLoading) {
+      toast.success("Profile completed successfully!");
+      router.push("/dashboard");
+      router.refresh();
+    }
+  }, [updateResult, updateLoading]);
+
+
     const watchIndustry = watch("industry");
 
     return (
