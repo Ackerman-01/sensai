@@ -2,6 +2,8 @@ import React from 'react'
 import { industries } from '@/data/industries'
 import { getUserOnboardingStatus } from '@/actions/user'
 import { redirect } from 'next/dist/server/api-utils';
+import OnboardingForm from "./_components/onboarding-form";
+
 //check ifuser is onbooarded
 
 
