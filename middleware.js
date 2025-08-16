@@ -10,9 +10,9 @@ const isProtectedRoute = createRouteMatcher([
 ]);
 // This middleware will redirect unauthenticated users to the sign-in page
 export default clerkMiddleware(async (auth,req)=>{
-  const {userID}=await auth();
+  const {userId}=await auth();
 
-  if(!userID && isProtectedRoute(req)){
+  if(!userId && isProtectedRoute(req)){
     const {redirectToSignIn} = await auth();
     return redirectToSignIn()
   }
