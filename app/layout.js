@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { headers } from "next/headers";
 import Header from "@/components/header";
+import { Toaster } from "sonner";
 import {
   ClerkProvider,
   SignInButton,
@@ -39,7 +40,7 @@ export default function RootLayout({ children }) {
             {children}
 
             </main>
-
+            <Toaster richColors/>
             {/*footer*/}
             <footer className="bg-muted/50 py-12">
               <div className="container mx-auto px-4 text-center text-gray-200">
