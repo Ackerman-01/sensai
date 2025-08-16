@@ -16,10 +16,14 @@ import {
     DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
+
 } from "@/components/ui/dropdown-menu";
-const Header = () => {
+import { checkUser } from "@/lib/checkuser";
+
+
+const Header = async() => {
+    await checkUser();
+
     return (
         <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50
     supports-[backdrop-filter]:bg-background/60'>
