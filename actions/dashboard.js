@@ -11,7 +11,7 @@ export const generateAIInsights = async (industry) => {
 
 
     const prompt = `
-          Analyze the current state of the ${industry} industry and provide insights in ONLY the following JSON format without any additional notes or explanations:
+          Analyze the current state of the ${industry} industry in India and provide insights in ONLY the following JSON format without any additional notes or explanations:
           {
             "salaryRanges": [
               { "role": "string", "min": number, "max": number, "median": number, "location": "string" }
@@ -25,7 +25,7 @@ export const generateAIInsights = async (industry) => {
           }
           
           IMPORTANT: Return ONLY the JSON. No additional text, notes, or markdown formatting.
-          Include at least 5 common roles for salary ranges.
+          Include at least 5 common roles for salary ranges and give salary in Indian Rs.
           Growth rate should be a percentage.
           Include at least 5 skills and trends.
         `;
