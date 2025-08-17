@@ -32,9 +32,9 @@ const DashboardView = ({insights}) => {
 
     const salaryData = insights.salaryRanges.map((range) => ({
     name: range.role,
-    min: range.min / 1000,
-    max: range.max / 1000,
-    median: range.median / 1000,
+    min: range.min/100000,
+    max: range.max /100000,
+    median: range.median/100000,
   }));
 
   const getDemandLevelColor = (level) => {
@@ -146,7 +146,7 @@ const DashboardView = ({insights}) => {
         <CardHeader>
           <CardTitle>Salary Ranges by Role</CardTitle>
           <CardDescription>
-            Displaying minimum, median, and maximum salaries (in thousands)
+            Displaying minimum, median, and maximum salaries (in Lakhs per annum)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -164,7 +164,7 @@ const DashboardView = ({insights}) => {
                           <p className="font-medium">{label}</p>
                           {payload.map((item) => (
                             <p key={item.name} className="text-sm">
-                              {item.name}: ${item.value}K
+                              {item.name}: Rs. {item.value} LPA
                             </p>
                           ))}
                         </div>
@@ -173,9 +173,9 @@ const DashboardView = ({insights}) => {
                     return null;
                   }}
                 />
-                <Bar dataKey="min" fill="#94a3b8" name="Min Salary (K)" />
-                <Bar dataKey="median" fill="#64748b" name="Median Salary (K)" />
-                <Bar dataKey="max" fill="#475569" name="Max Salary (K)" />
+                <Bar dataKey="min" fill="#94a3b8" name="Min Salary (LPA)" />
+                <Bar dataKey="median" fill="#64748b" name="Median Salary (LPA)" />
+                <Bar dataKey="max" fill="#475569" name="Max Salary (LPA)" />
               </BarChart>
             </ResponsiveContainer>
           </div>
