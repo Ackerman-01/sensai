@@ -23,7 +23,7 @@ import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/nextjs";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
-import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
+import html2pdf from "html2pdf.js";
 
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
@@ -147,7 +147,7 @@ export default function ResumeBuilder({ initialContent }) {
   };
 
   return (
-    <div data-color-mode="light" className="space-y-4">
+    <div data-color-mode="light" className="space-y-4 mx-auto md:max-w-3xl lg:max-w-6xl">
       <div className="flex flex-col md:flex-row justify-between items-center gap-2">
         <h1 className="font-bold gradient-title text-5xl md:text-6xl">
           Resume Builder
