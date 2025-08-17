@@ -2,16 +2,25 @@ import React from 'react'
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRightIcon } from 'lucide-react';
+import StatsCards from './_components/stats-cards';
+import PerformanceChart from './_components/performance-charts';
+import QuizList from './_components/quiz-list';
+import { getAssessments } from '@/actions/interview';
 
-const InterviewPage = () => {
+const InterviewPage = async() => {
+
+  const assessments = await getAssessments();
   return (
     <div>
-      <Link href={"/interview/mock"}>
-          <Button variant="link" className="gap-2 pl-0">
-            <ArrowRightIcon className="h-4 w-4" />
-            Take Mock Interview
-          </Button>
-        </Link>
+      <h1 className="text-6xl font-bold gradient-title mb-5">Interview Preparation</h1>
+
+
+    <div className='space-y-4'>
+<StatsCards assessments={assessments}/>
+<PerformanceChart assessments={assessments}/>
+<QuizList assessments={assessments}/>
+
+    </div>
     </div>
   )
 }

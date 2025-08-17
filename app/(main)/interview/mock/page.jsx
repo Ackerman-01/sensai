@@ -3,6 +3,7 @@ import React from 'react'
 import  Link  from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import Quiz from '../_components/quiz';
 
 const MockInterviewPage = () => {
   return (
@@ -17,13 +18,15 @@ const MockInterviewPage = () => {
 
         <div>
           <h1>
-            
+
           </h1>
           <p>
 
           </p>
         </div>
         </div>
+
+        <Quiz />
     </div>
   )
 }
