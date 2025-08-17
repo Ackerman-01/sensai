@@ -1,7 +1,7 @@
 import React from 'react'
 import { industries } from '@/data/industries'
 import { getUserOnboardingStatus } from '@/actions/user'
-import { redirect } from 'next/dist/server/api-utils';
+import { redirect } from 'next/navigation';
 import OnboardingForm from "./_components/onboarding-form";
 
 //check ifuser is onbooarded
@@ -10,8 +10,8 @@ import OnboardingForm from "./_components/onboarding-form";
 
 
 const OnboardingPage = async () => {
-    const {isOnBoarded}=await getUserOnboardingStatus();
-    if(isOnBoarded){    
+    const {isOnboarded}=await getUserOnboardingStatus();
+    if(isOnboarded){    
         redirect("/dashboard");
     }
 
