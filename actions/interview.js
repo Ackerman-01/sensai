@@ -85,9 +85,7 @@ export async function saveQuizResult(questions, answers, score) {
 
         const improvementPrompt = `
       The user got the following ${user.industry} technical interview questions wrong:
-
       ${wrongQuestionsText}
-
       Based on these mistakes, provide a concise, specific improvement tip.
       Focus on the knowledge gaps revealed by these wrong answers.
       Keep the response under 2 sentences and make it encouraging.
@@ -96,7 +94,6 @@ export async function saveQuizResult(questions, answers, score) {
 
         try {
             const tipResult = await model.generateContent(improvementPrompt);
-
             improvementTip = tipResult.response.text().trim();
             console.log(improvementTip);
         } catch (error) {
@@ -106,6 +103,23 @@ export async function saveQuizResult(questions, answers, score) {
     }
 
 
+    try {
+        const assessment = await db.assessment.create({
+            data: {
+                userId: user.id,
+                quizScore: score,
+                questions: questionResults,
+                category: "Technical",
+                improvementTip,
+            },
+        });
+
+        return assessment;
+    } catch (error) {
+        console.error("Error saving quiz result:", error);
+        throw new Error("Failed to save quiz result");
+
+    }
 }
 
 
