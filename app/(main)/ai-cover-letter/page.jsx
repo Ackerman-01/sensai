@@ -1,11 +1,25 @@
+import { getCoverLetters } from "@/actions/cover-letter";
+import Link from "next/link";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import CoverLetterList from "./_components/cover-letter-list";
 
+export default async function CoverLetterPage() {
+  const coverLetters = await getCoverLetters();
 
-const AICoverLettersPage = () => {
-  return (<div>
-      AICover Letters Page
-    </div>)
-  
-};
+  return (
+    <div className="space-y-4 mx-auto md:max-w-3xl lg:max-w-6xl">
+      <div className="flex flex-col md:flex-row gap-2 items-center justify-between mb-5">
+        <h1 className="text-6xl font-bold gradient-title">My Cover Letters</h1>
+        <Link href="/ai-cover-letter/new">
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            Create New
+          </Button>
+        </Link>
+      </div>
 
-export default AICoverLettersPage
-
+      <CoverLetterList coverLetters={coverLetters} />
+    </div>
+  );
+}
