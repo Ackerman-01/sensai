@@ -58,7 +58,7 @@ export default function RootLayout({ children }) {
             <FaGithub size={28} />
           </a>
           <a
-            href="www.linkedin.com/in/amit-patil-026b83277" // <-- Replace with your LinkedIn URL
+            href="https://www.linkedin.com/in/amit-patil-026b83277" // <-- Replace with your LinkedIn URL
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-400 transition-colors duration-200"
