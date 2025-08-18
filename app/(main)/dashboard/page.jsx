@@ -6,10 +6,11 @@ import DashboardView from "./_components/dashboard-view";
 
 const IndustryInsightPage = async () => {
         const {isOnboarded}=await getUserOnboardingStatus();
-        const insights = await getIndustryInsights();
+       
         if(!isOnboarded){    
             redirect("/onboarding");
         }
+        const insights = await getIndustryInsights();
 
   return (
     <div className="container mx-auto">
