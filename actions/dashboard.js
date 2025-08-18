@@ -1,17 +1,15 @@
-"use server"
+"use server";
+
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import next from "next";
-
+import { redirect } from "next/navigation";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export const generateAIInsights = async (industry) => {
-
-
     const prompt = `
-          Analyze the current state of the ${industry} industry in India and provide insights in ONLY the following JSON format without any additional notes or explanations:
+           Analyze the current state of the ${industry} industry in India and provide insights in ONLY the following JSON format without any additional notes or explanations:
           {
             "salaryRanges": [
               { "role": "string", "min": number, "max": number, "median": number, "location": "string" }
@@ -30,46 +28,54 @@ export const generateAIInsights = async (industry) => {
           Include at least 5 skills and trends.
         `;
 
-
-    const result = await model.generateContent(prompt)
+    const result = await model.generateContent(prompt);
     const response = result.response;
     const text = response.text();
     const cleanedText = text.replace(/```(?:json)?\n?/g, "").trim();
+
     return JSON.parse(cleanedText);
-
-
-}
+};
 
 export async function getIndustryInsights() {
-
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
 
     const user = await db.user.findUnique({
-        where: { clerkUserId: userId
-            
-         },
-         include: {
+        where: { clerkUserId: userId },
+        include: {
             industryInsight: true,
-         },
+        },
     });
 
     if (!user) throw new Error("User not found");
 
+    if (!user.industry) {
+        redirect("/onboarding");
+    }
+    // If no insights exist, generate them
     if (!user.industryInsight) {
-        const insights = await generateAIInsights(user.industry);
+        try {
+            const insights = await generateAIInsights(user.industry);
 
-        const industryInsight = await db.industryInsight.create({
-            data: {
+            const industryInsight = await db.industryInsight.create({
+                data: {
+                    industry: user.industry,
+                    salaryRanges: insights.salaryRanges,
+                    growthRate: insights.growthRate,
+                    demandLevel: insights.demandLevel,
+                    topSkills: insights.topSkills,
+                    marketOutlook: insights.marketOutlook,
+                    keyTrends: insights.keyTrends,
+                    recommendedSkills: insights.recommendedSkills,
+                    nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+                },
+            });
 
-                industry: user.industry,
-                ...insights,
-                nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
-            },
-        });
-
-        return industryInsight;
+            return industryInsight;
+        } catch (err) {
+            console.error("Failed to generate or persist industry insights:", err);
+            throw err;
+        }
     }
     return user.industryInsight;
-
 }
