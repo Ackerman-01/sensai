@@ -1,6 +1,6 @@
-# ⚡ Sensai – AI-Powered Learning Platform
+# ⚡ Sensai – Your Personal AI Coach for Professional Success
 
-Sensai is an AI-powered web platform built with **Next.js**, **Prisma**, **Neon (Postgres)**, and **Clerk** for authentication. It leverages **Google Gemini AI** to provide personalized learning experiences.
+Sensai is an AI-powered web platform built with **Next.js**, **Prisma**, **Neon (Postgres)**, and **Clerk** for authentication. It leverages **Google Gemini AI** to provide personalized learning experiences and career guidance.
 
 ---
 
