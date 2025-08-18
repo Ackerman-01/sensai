@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useRef } from "react";
+import { Linkedin } from "lucide-react";
+import { FaLink, FaPage4, FaPatreon, FaPersonBooth } from "react-icons/fa";
 
 const HeroSection = () => {
 
@@ -47,9 +49,10 @@ const HeroSection = () => {
                     Get Started
                 </Button>
             </Link>
-             <Link href="/dashboard">
+             <Link href="#footer">
                 <Button size="lg" className="px-8" variant={"outline"}>
-                    Get Started
+                    About Me
+                    <FaLink/>
                 </Button>
             </Link>
         </div>

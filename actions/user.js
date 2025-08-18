@@ -3,16 +3,14 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { success } from "zod";
 import { generateAIInsights } from "./dashboard";
+import { checkUser } from "@/lib/checkuser";
 
 export async function updateUser(data) {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
+const user = await checkUser();
 
   if (!user) throw new Error("User not found");
 
@@ -33,11 +31,10 @@ export async function updateUser(data) {
 
           industryInsight = await db.industryInsight.create({
             data: {
-               industry: data.industry,
+              industry: data.industry,
               ...insights,
-              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
-
-            }
+              nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            },
           });
         }
 
@@ -62,23 +59,27 @@ export async function updateUser(data) {
     );
 
     revalidatePath("/");
-    return { success: true, ...result };
+    return result.user;
   } catch (error) {
     console.error("Error updating user and industry:", error.message);
-    throw new Error("Failed to update profile " + error.message);
+    throw new Error("Failed to update profile");
   }
 }
-
 
 export async function getUserOnboardingStatus() {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
+const user = await checkUser();
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
+  console.log("Clerk userId from auth():", userId);
+  console.log("Type of userId:", typeof userId);
+  console.log("Length of userId:", userId.length);
+    const allUsers = await db.user.findMany({
+    select: { clerkUserId: true, email: true },
+    take: 5 // Just get first 5 for debugging
   });
-
-  if (!user) throw new Error("User not found");
+  console.log("Sample clerkUserIds in database:", allUsers);
+  if (!user) throw new Error("User not found in db");
 
   try {
     const user = await db.user.findUnique({
