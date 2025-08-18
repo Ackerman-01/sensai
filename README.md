@@ -9,7 +9,6 @@ Sensai is an AI-powered web platform built with **Next.js**, **Prisma**, **Neon 
 - 🔑 Authentication & user management with **Clerk**
 - 🗄️ Database management using **Prisma ORM** & **Neon (Postgres)**
 - 🤖 AI-powered responses with **Google Gemini API**
-- ⚡ Fully typed with **TypeScript**
 - 🎨 Styled with **Tailwind CSS**
 - 🚀 Deployed on **Vercel** (recommended)
 
